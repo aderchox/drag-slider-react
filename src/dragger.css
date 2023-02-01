@@ -1,0 +1,18 @@
+.dragger {
+    background-color: azure;
+    user-select: none;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+}
+
+.dragItem {
+    padding: 10px;
+    background-color: aquamarine;
+    margin: 10px;
+    width: 90%;
+    flex: 0 0 auto;
+    pointer-events: none;
+}
