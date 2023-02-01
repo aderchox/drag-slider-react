@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import DragItem from "./DragItem";
-import { useState } from "react";
 
 const NumbersDragger = () => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState();
-  const [startScrollLeft, setStartScrollLeft] = useState();
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(null);
+  const startScrollLeftRef = useRef(null);
+  const sliderRef = useRef(null);
 
   function dragStartHandler(e) {
-    setIsDragging(true);
-    setStartX(e.pageX - e.target.offsetLeft);
-    setStartScrollLeft(e.target.scrollLeft);
+    isDraggingRef.current = true;
+    startXRef.current = e.pageX - sliderRef.current.offsetLeft;
+    startScrollLeftRef.current = sliderRef.current.scrollLeft;
   }
 
   function dragMoveHandler(e) {
-    if (!isDragging) {
+    if (!isDraggingRef.current) {
       return;
     }
-    const walk = e.pageX - startX;
-    e.target.scrollLeft = startScrollLeft - walk;
+    const walk = e.pageX - startXRef.current;
+    sliderRef.current.scrollLeft = startScrollLeftRef.current - walk;
   }
 
   function endDrag(e) {
-    setIsDragging(false);
+    isDraggingRef.current = false;
   }
 
+  useEffect(() => {
+    window.addEventListener("mousemove", dragMoveHandler);
+    window.addEventListener("mouseup", endDrag);
+
+    return () => {
+      window.removeEventListener("mousemove", dragMoveHandler);
+      window.removeEventListener("mouseup", endDrag);
+    };
+  }, []);
+
   return (
-    <div
-      className="dragger"
-      onMouseDown={dragStartHandler}
-      onMouseMove={dragMoveHandler}
-      onMouseUp={endDrag}
-    >
+    <div className="dragger" onMouseDown={dragStartHandler} ref={sliderRef}>
       <DragItem>1</DragItem>
       <DragItem>2</DragItem>
       <DragItem>3</DragItem>
