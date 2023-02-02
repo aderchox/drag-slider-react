@@ -31,6 +31,6 @@ body.slider-active {
     pointer-events: none;
 }
 
-.dragItem:nth-child(2) {
+.dragItem:nth-child(2n) {
     background-color: tomato;
 }

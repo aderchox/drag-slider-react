@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import DragItem from "./DragItem";
+import anime from "animejs/lib/anime.es.js";
 
 const NumbersDragger = () => {
   const isDraggingRef = useRef(false);
@@ -22,7 +23,7 @@ const NumbersDragger = () => {
     }
     const walk = e.pageX - startXRef.current;
     sliderRef.current.scrollLeft = startScrollLeftRef.current - walk;
-    walkDirection.current = walk > 0 ? "left" : "right";
+    walkDirection.current = e.movementX > 0 ? "left" : "right";
   }
 
   function endDrag(e) {
@@ -34,21 +35,45 @@ const NumbersDragger = () => {
     if (widthInRatio === 0) {
       return;
     }
+    const EASING = "cubicBezier(.3, .7, .1, 1.1)";
+    const DURATION = 400;
     if (walkDirection.current === "right") {
       if (widthInRatio < 0.15) {
-        sliderRef.current.scrollLeft = sliderRef.current.scrollLeft - widthIn;
+        anime({
+          targets: sliderRef.current,
+          scrollLeft: sliderRef.current.scrollLeft - widthIn,
+          easing: EASING,
+          round: 1,
+          duration: DURATION,
+        });
       } else {
-        sliderRef.current.scrollLeft =
-          sliderRef.current.scrollLeft - widthIn + fullWidth;
+        anime({
+          targets: sliderRef.current,
+          scrollLeft: sliderRef.current.scrollLeft - widthIn + fullWidth,
+          easing: EASING,
+          round: 1,
+          duration: DURATION,
+        });
         activeSlideNumberRef.current++;
       }
     } else {
       if (widthInRatio < 0.85) {
-        sliderRef.current.scrollLeft = sliderRef.current.scrollLeft - widthIn;
+        anime({
+          targets: sliderRef.current,
+          scrollLeft: sliderRef.current.scrollLeft - widthIn,
+          easing: EASING,
+          round: 1,
+          duration: DURATION,
+        });
         activeSlideNumberRef.current--;
       } else {
-        sliderRef.current.scrollLeft =
-          sliderRef.current.scrollLeft - widthIn + fullWidth;
+        anime({
+          targets: sliderRef.current,
+          scrollLeft: sliderRef.current.scrollLeft - widthIn + fullWidth,
+          easing: EASING,
+          round: 1,
+          duration: DURATION,
+        });
       }
     }
   }
