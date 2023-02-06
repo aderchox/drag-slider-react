@@ -7,7 +7,8 @@ const NumbersDragger = () => {
   const startXRef = useRef(null);
   const startScrollLeftRef = useRef(null);
   const sliderRef = useRef(null);
-  const activeSlideIndexRef = useRef(0);
+  const INITIAL_ACTIVE_SLIDE_INDEX = 2;
+  const activeSlideIndexRef = useRef(INITIAL_ACTIVE_SLIDE_INDEX);
   const walkDirection = useRef(null);
 
   function dragStartHandler(e) {
@@ -87,7 +88,12 @@ const NumbersDragger = () => {
     activateSlide(activeSlideIndexRef.current);
   }
 
+  function initialize() {
+    activateSlide(activeSlideIndexRef.current);
+  }
+
   useEffect(() => {
+    initialize();
     window.addEventListener("mousemove", dragMoveHandler);
     window.addEventListener("mouseup", endDrag);
     window.addEventListener("resize", windowResizeHandler);
