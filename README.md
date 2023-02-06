@@ -1,1 +1,1 @@
-### Non-Looped Drag Slider in React
+### Non-Looped Infinite Drag Slider in React

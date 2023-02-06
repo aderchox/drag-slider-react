@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import DragItem from "./DragItem";
 import anime from "animejs/lib/anime.es.js";
 
-const NumbersDragger = () => {
+const Dragger = ({ slides }) => {
   const isDraggingRef = useRef(false);
   const startXRef = useRef(null);
   const startScrollLeftRef = useRef(null);
@@ -116,13 +116,11 @@ const NumbersDragger = () => {
 
   return (
     <div className="dragger" onMouseDown={dragStartHandler} ref={sliderRef}>
-      <DragItem index={0} />
-      <DragItem index={1} />
-      <DragItem index={2} />
-      <DragItem index={3} />
-      <DragItem index={4} />
+      {slides.map(function generateDragItem(s, i) {
+        return <DragItem index={s} key={i} />;
+      })}
     </div>
   );
 };
 
-export default NumbersDragger;
+export default Dragger;

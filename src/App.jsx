@@ -1,9 +1,9 @@
-import NumbersDragger from "./Dragger/NumbersDragger";
+import Dragger from "./Dragger/Dragger";
+import NumbersDragger from "./components/NumbersDragger";
 
 function App() {
   return (
     <div className="container">
-      <h2>Numbers Dragger</h2>
       <NumbersDragger />
     </div>
   );
