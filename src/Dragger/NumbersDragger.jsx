@@ -7,7 +7,7 @@ const NumbersDragger = () => {
   const startXRef = useRef(null);
   const startScrollLeftRef = useRef(null);
   const sliderRef = useRef(null);
-  const activeSlideNumberRef = useRef(0);
+  const activeSlideIndexRef = useRef(0);
   const walkDirection = useRef(null);
 
   function dragStartHandler(e) {
@@ -54,7 +54,7 @@ const NumbersDragger = () => {
           round: 1,
           duration: DURATION,
         });
-        activeSlideNumberRef.current++;
+        activeSlideIndexRef.current++;
       }
     } else {
       if (widthInRatio < 0.85) {
@@ -65,7 +65,7 @@ const NumbersDragger = () => {
           round: 1,
           duration: DURATION,
         });
-        activeSlideNumberRef.current--;
+        activeSlideIndexRef.current--;
       } else {
         anime({
           targets: sliderRef.current,
@@ -78,9 +78,13 @@ const NumbersDragger = () => {
     }
   }
 
-  function windowResizeHandler() {
+  function activateSlide(slideNumber) {
     const bodyWidth = parseInt(getComputedStyle(document.body).width, 10);
-    sliderRef.current.scrollLeft = activeSlideNumberRef.current * bodyWidth;
+    sliderRef.current.scrollLeft = slideNumber * bodyWidth;
+  }
+
+  function windowResizeHandler() {
+    activateSlide(activeSlideIndexRef.current);
   }
 
   useEffect(() => {
