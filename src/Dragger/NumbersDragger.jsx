@@ -38,21 +38,20 @@ const NumbersDragger = () => {
     }
     const EASING = "cubicBezier(.3, .7, .1, 1.1)";
     const DURATION = 400;
+    const TARGET = sliderRef.current;
     if (walkDirection.current === "right") {
       if (widthInRatio < 0.15) {
         anime({
-          targets: sliderRef.current,
-          scrollLeft: sliderRef.current.scrollLeft - widthIn,
+          targets: TARGET,
+          scrollLeft: TARGET.scrollLeft - widthIn,
           easing: EASING,
-          round: 1,
           duration: DURATION,
         });
       } else {
         anime({
-          targets: sliderRef.current,
-          scrollLeft: sliderRef.current.scrollLeft - widthIn + fullWidth,
+          targets: TARGET,
+          scrollLeft: TARGET.scrollLeft - widthIn + fullWidth,
           easing: EASING,
-          round: 1,
           duration: DURATION,
         });
         activeSlideIndexRef.current++;
@@ -60,19 +59,17 @@ const NumbersDragger = () => {
     } else {
       if (widthInRatio < 0.85) {
         anime({
-          targets: sliderRef.current,
-          scrollLeft: sliderRef.current.scrollLeft - widthIn,
+          targets: TARGET,
+          scrollLeft: TARGET.scrollLeft - widthIn,
           easing: EASING,
-          round: 1,
           duration: DURATION,
         });
         activeSlideIndexRef.current--;
       } else {
         anime({
-          targets: sliderRef.current,
-          scrollLeft: sliderRef.current.scrollLeft - widthIn + fullWidth,
+          targets: TARGET,
+          scrollLeft: TARGET.scrollLeft - widthIn + fullWidth,
           easing: EASING,
-          round: 1,
           duration: DURATION,
         });
       }
