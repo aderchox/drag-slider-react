@@ -1,7 +1,7 @@
 import React from "react";
 
-const DragItem = ({ children }) => {
-  return <div className="dragItem">{children}</div>;
+const DragItem = ({ index }) => {
+  return <div className="dragItem">Slide #{index + 1}</div>;
 };
 
 export default DragItem;

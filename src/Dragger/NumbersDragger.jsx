@@ -30,47 +30,59 @@ const NumbersDragger = () => {
   function endDrag(e) {
     isDraggingRef.current = false;
     document.body.classList.remove("slider-active");
-    const fullWidth = parseInt(getComputedStyle(document.body).width, 10);
-    const widthIn = sliderRef.current.scrollLeft % fullWidth;
-    const widthInRatio = widthIn / fullWidth;
+    const { fullWidth, widthIn, widthInRatio } = getSlidePlaceInformation();
     if (widthInRatio === 0) {
       return;
     }
+    animateDragEnd(fullWidth, widthIn, widthInRatio);
+  }
+
+  function getSlidePlaceInformation() {
+    const fullWidth = parseInt(getComputedStyle(document.body).width, 10);
+    const widthIn = sliderRef.current.scrollLeft % fullWidth;
+    const widthInRatio = widthIn / fullWidth;
+    return {
+      fullWidth,
+      widthIn,
+      widthInRatio,
+    };
+  }
+
+  function animateDragEnd(fullWidth, widthIn, widthInRatio) {
     const EASING = "cubicBezier(.3, .7, .1, 1.1)";
     const DURATION = 400;
     const TARGET = sliderRef.current;
+    const sharedAnimeOptions = {
+      targets: TARGET,
+      easing: EASING,
+      duration: DURATION,
+    };
+    const CHANGE_SLIDE_THRESHOLD = 0.15;
+
     if (walkDirection.current === "right") {
-      if (widthInRatio < 0.15) {
+      if (widthInRatio < CHANGE_SLIDE_THRESHOLD) {
         anime({
-          targets: TARGET,
+          ...sharedAnimeOptions,
           scrollLeft: TARGET.scrollLeft - widthIn,
-          easing: EASING,
-          duration: DURATION,
         });
       } else {
         anime({
-          targets: TARGET,
+          ...sharedAnimeOptions,
           scrollLeft: TARGET.scrollLeft - widthIn + fullWidth,
-          easing: EASING,
-          duration: DURATION,
         });
         activeSlideIndexRef.current++;
       }
     } else {
-      if (widthInRatio < 0.85) {
+      if (widthInRatio < 1 - CHANGE_SLIDE_THRESHOLD) {
         anime({
-          targets: TARGET,
+          ...sharedAnimeOptions,
           scrollLeft: TARGET.scrollLeft - widthIn,
-          easing: EASING,
-          duration: DURATION,
         });
         activeSlideIndexRef.current--;
       } else {
         anime({
-          targets: TARGET,
+          ...sharedAnimeOptions,
           scrollLeft: TARGET.scrollLeft - widthIn + fullWidth,
-          easing: EASING,
-          duration: DURATION,
         });
       }
     }
@@ -104,11 +116,11 @@ const NumbersDragger = () => {
 
   return (
     <div className="dragger" onMouseDown={dragStartHandler} ref={sliderRef}>
-      <DragItem>1</DragItem>
-      <DragItem>2</DragItem>
-      <DragItem>3</DragItem>
-      <DragItem>4</DragItem>
-      <DragItem>5</DragItem>
+      <DragItem index={0} />
+      <DragItem index={1} />
+      <DragItem index={2} />
+      <DragItem index={3} />
+      <DragItem index={4} />
     </div>
   );
 };
