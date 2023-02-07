@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import DragItem from "./DragItem";
 import anime from "animejs/lib/anime.es.js";
+import "./dragger.css";
 
 const Dragger = ({ slides }) => {
   const isDraggingRef = useRef(false);
@@ -114,10 +115,12 @@ const Dragger = ({ slides }) => {
     };
   }, []);
 
+  const MemoDragItem = memo(DragItem);
+
   return (
     <div className="dragger" onMouseDown={dragStartHandler} ref={sliderRef}>
       {slides.map(function generateDragItem(s, i) {
-        return <DragItem index={s} key={i} />;
+        return <MemoDragItem index={s} key={i} />;
       })}
     </div>
   );

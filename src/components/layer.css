@@ -1,0 +1,21 @@
+.layer {
+    position: absolute;
+    width: 100%;
+    display: flex;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    background-color: coral;
+    position: relative;
+    top: 80px;
+}
+
+
+.endSubLayer {
+    display: flex;
+    justify-content: center;
+    min-width: 400px;
+    flex-grow: 1;
+}
