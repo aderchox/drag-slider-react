@@ -1,0 +1,37 @@
+.layer {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    top: 85px;
+}
+
+.circle {
+    width: 200px;
+    height: 60px;
+    background-color: coral;
+    position: relative;
+    top: 80px;
+}
+
+
+.endSubLayer {
+    display: flex;
+    justify-content: center;
+    /* min-width: 400px; */
+    flex-grow: 1;
+}
+
+.drawer {
+    background-color: cornflowerblue;
+    width: 280px;
+    min-height: 100vh;
+    text-align: justify;
+}
+
+.drawer--xs {
+    background-color: dodgerblue;
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    width: 50px;
+}

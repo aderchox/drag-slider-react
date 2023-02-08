@@ -1,5 +1,4 @@
 import React from "react";
-import "./layer.css";
 import Drawer from "./Drawer";
 
 const Layer = () => {
